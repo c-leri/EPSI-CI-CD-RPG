@@ -63,17 +63,32 @@ jobs:
           cache: npm
           cache-dependency-path: ./front/package-lock.json
 
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: "~/.cache/ms-playwright"
+          key: ${{ runner.os }}-playwright-${{ hashFiles('./front/package-lock.json') }}
+
       - name: Install dependencies
         working-directory: ./front
         run: npm ci
 
       - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         working-directory: ./front
         run: npx playwright install --with-deps
 
+      - name: Install Playwright Browsers - Cached
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        working-directory: ./front
+        run: npx playwright install-deps
+
       - name: Test
         working-directory: ./front
-        run: npm run test:e2e -- --reporter=junit --outputFile=./test-report.xml
+        run: npm run test:e2e -- --reporter=junit
+        env:
+          PLAYWRIGHT_JUNIT_OUTPUT_NAME: test-report.xml
 
       - name: Test Report
         uses: dorny/test-reporter@v2
