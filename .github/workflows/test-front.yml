@@ -1,0 +1,84 @@
+name: "Front: Test"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - front/src/**
+      - front/e2e/**
+      - front/package-lock.json
+      - front/*config.json
+      - front/*config.[tj]s
+      - .github/workflows/test-front.yml
+  pull_request:
+    paths:
+      - front/**
+
+jobs:
+  test-unit:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./front/package.json
+          cache: npm
+          cache-dependency-path: ./front/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./front
+        run: npm ci
+
+      - name: Test
+        working-directory: ./front
+        run: npm run test:unit -- run --reporter=junit --outputFile=./test-report.xml
+
+      - name: Test Report
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}
+        with:
+          name: Tests
+          path: ./front/test-report.xml
+          reporter: jest-junit
+
+  test-e2e:
+    name: End to End Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./front/package.json
+          cache: npm
+          cache-dependency-path: ./front/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./front
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        working-directory: ./front
+        run: npx playwright install --with-deps
+
+      - name: Test
+        working-directory: ./front
+        run: npm run test:e2e -- --reporter=junit --outputFile=./test-report.xml
+
+      - name: Test Report
+        uses: dorny/test-reporter@v2
+        if: ${{ !cancelled() }}
+        with:
+          name: Tests
+          path: ./front/test-report.xml
+          reporter: jest-junit
