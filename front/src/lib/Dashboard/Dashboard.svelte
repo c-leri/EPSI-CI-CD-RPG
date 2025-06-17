@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Home, Users, Settings, BarChart3, Bell, Sun,Moon } from '@lucide/svelte';
     import "../../app.css";
-    import ScenarioViewer from "$lib/components/ScenarioViewer.svelte";
+    import GameViewer from "$lib/components/GameViewer.svelte";
     import { ModeWatcher } from "mode-watcher";
     let { children } = $props();
 
@@ -70,6 +70,6 @@
 
     <!-- Contenu principal -->
     <main class="ml-64 mt-16 min-h-[calc(100vh-4rem)] p-8">
-       <ScenarioViewer />
+       <GameViewer />
     </main>
 </div>
