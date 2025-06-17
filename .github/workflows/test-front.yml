@@ -12,8 +12,6 @@ on:
       - front/*config.[tj]s
       - .github/workflows/test-front.yml
   pull_request:
-    paths:
-      - front/**
 
 jobs:
   test-unit:
