@@ -1,6 +1,5 @@
 package io.github.cleri.epsicicdrpg.back.service;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.github.cleri.epsicicdrpg.back.model.Game;
@@ -16,6 +15,7 @@ public class GameService {
 
     public int createGame(){
         Game game = gameRepository.save(new Game());
+        
         return game.getId().intValue();
         
     }
@@ -42,6 +42,7 @@ public class GameService {
         }
 
         int diceRoll = (int) (Math.random() * 6) + 1;
+        game.setLastDiceRoll(diceRoll);
 
         switch (diceRoll) {
             case 1:
