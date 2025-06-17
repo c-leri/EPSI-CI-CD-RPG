@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import io.github.cleri.epsicicdrpg.back.model.Sauvegarde;
-import io.github.cleri.epsicicdrpg.back.service.SauvegardeService;
+import io.github.cleri.epsicicdrpg.back.model.Game;
+import io.github.cleri.epsicicdrpg.back.service.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -14,25 +14,34 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api/sauvegarde")
-public class SauvegardeController {
+@RequestMapping("/api/game")
+public class GameController {
 
     @Autowired
-    private SauvegardeService sauvegardeService;
+    private GameService gameService;
 
-    @PostMapping("/game")
+    @PostMapping("/")
     public ResponseEntity<String> createGame() {
-        int gameId = sauvegardeService.createSauvegarde();
+        int gameId = gameService.createGame();
         return ResponseEntity.status(201).body(Integer.toString(gameId));
     }
 
-    @GetMapping("/game/{id}")
-    public ResponseEntity<Sauvegarde> getGame(@PathVariable Long id) {
-        Sauvegarde gameData = sauvegardeService.getSauvegardeById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Game> getGame(@PathVariable Long id) {
+        Game gameData = gameService.getGameById(id);
         if (gameData == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(gameData);
+    }
+
+    @PostMapping("/{id}/play")
+    public ResponseEntity<Game> playGame(@PathVariable Long id) {
+        Game game = gameService.playGame(id);
+        if (game == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(game);
     }
 }
 

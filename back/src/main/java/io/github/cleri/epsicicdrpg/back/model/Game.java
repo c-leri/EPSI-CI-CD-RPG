@@ -9,16 +9,15 @@ import lombok.Setter;
 @Entity
 @Getter 
 @Setter
-public class Sauvegarde {
+public class Game {
     
     @GeneratedValue
     @Id
     private Long id;
-
     private int pv;
     private int nbSalle;
 
-    public Sauvegarde() {
+    public Game() {
         this.pv = 6; 
         this.nbSalle = 0; 
     }
