@@ -16,10 +16,12 @@ public class Game {
     private Long id;
     private int pv;
     private int nbSalle;
+    private int lastDiceRoll;
 
     public Game() {
         this.pv = 6; 
         this.nbSalle = 0; 
+        this.lastDiceRoll = 7;
     }
 
 

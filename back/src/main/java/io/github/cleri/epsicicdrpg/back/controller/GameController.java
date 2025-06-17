@@ -1,5 +1,8 @@
 package io.github.cleri.epsicicdrpg.back.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +26,7 @@ public class GameController {
     @PostMapping("/")
     public ResponseEntity<String> createGame() {
         int gameId = gameService.createGame();
+        System.err.println("YO");
         return ResponseEntity.status(201).body(Integer.toString(gameId));
     }
 
@@ -36,13 +40,24 @@ public class GameController {
     }
 
     @PostMapping("/{id}/play")
-    public ResponseEntity<Game> playGame(@PathVariable Long id) {
-        Game game = gameService.playGame(id);
-        if (game == null) {
-            return ResponseEntity.notFound().build();
+        public ResponseEntity<?> playGame(@PathVariable Long id) {
+            Game game = gameService.getGameById(id);
+
+            if (game == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            if (game.getPv() <= 0) {
+                Map<String, Object> response = new HashMap<>();
+                response.put("message", "Game over: HP is 0");
+                response.put("game", game);
+                return ResponseEntity.ok(response);
+            }
+
+            Game updatedGame = gameService.playGame(id);
+            return ResponseEntity.ok(updatedGame);
         }
-        return ResponseEntity.ok(game);
-    }
+
 }
 
 
