@@ -1,12 +1,6 @@
-
-package main.java.io.github.cleri.epsicicdrpg.back.service;
-
-import java.util.*;
+package io.github.cleri.epsicicdrpg.back.service;
 
 import org.springframework.stereotype.Service;
-
-import io.github.cleri.epsicicdrpg.back.model.Room;
-import io.github.cleri.epsicicdrpg.back.model.RoomType;
 
 @Service
 public class EncounterService {

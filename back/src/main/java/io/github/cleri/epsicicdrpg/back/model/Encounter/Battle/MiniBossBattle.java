@@ -1,4 +1,4 @@
-package main.java.io.github.cleri.epsicicdrpg.back.model;
+package io.github.cleri.epsicicdrpg.back.model.encounter.battle;
 
 
 public class MiniBossBattle extends Battle{
