@@ -6,6 +6,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	test: {
+		coverage: {
+			reporter: ['text', 'json-summary', 'json'],
+			reportOnFailure: true
+		},
 		projects: [
 			{
 				extends: './vite.config.ts',
