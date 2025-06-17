@@ -1,4 +1,4 @@
-package io.github.cleri.epsicicdrpg.back.model;
+package io.github.cleri.epsicicdrpg.back.model.room;
 
 public class Room {
     private int index;

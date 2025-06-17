@@ -4,8 +4,8 @@ import java.util.*;
 
 import org.springframework.stereotype.Service;
 
-import io.github.cleri.epsicicdrpg.back.model.Room;
-import io.github.cleri.epsicicdrpg.back.model.RoomType;
+import io.github.cleri.epsicicdrpg.back.model.room.Room;
+import io.github.cleri.epsicicdrpg.back.model.room.RoomType;
 
 @Service
 public class RoomGeneratorService {

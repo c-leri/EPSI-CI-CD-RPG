@@ -1,4 +1,4 @@
-package main.java.io.github.cleri.epsicicdrpg.back.model.Character;
+package io.github.cleri.epsicicdrpg.back.model.character;
 
 
 public class CharacterStats {

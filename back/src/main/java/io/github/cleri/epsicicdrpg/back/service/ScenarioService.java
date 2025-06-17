@@ -2,8 +2,8 @@ package io.github.cleri.epsicicdrpg.back.service;
 
 import org.springframework.stereotype.Service;
 
-import io.github.cleri.epsicicdrpg.back.model.Room;
 import io.github.cleri.epsicicdrpg.back.model.Scenario;
+import io.github.cleri.epsicicdrpg.back.model.room.Room;
 
 import java.util.List;
 
