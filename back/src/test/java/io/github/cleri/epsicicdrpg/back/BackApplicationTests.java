@@ -5,8 +5,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import io.github.cleri.epsicicdrpg.back.model.Room;
-import io.github.cleri.epsicicdrpg.back.model.RoomType;
+
+import io.github.cleri.epsicicdrpg.back.model.room.Room;
+import io.github.cleri.epsicicdrpg.back.model.room.RoomType;
 import io.github.cleri.epsicicdrpg.back.service.RoomGeneratorService;
 import io.github.cleri.epsicicdrpg.back.service.ScenarioService;
 
