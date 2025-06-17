@@ -4,7 +4,11 @@ services:
     ports:
       - '3000:3000'
     environment:
+<<<<<<< HEAD
       PUBLIC_BACKEND_URL: http://back:8080/api
+=======
+      BACKEND_URL: http://localhost:8080/api
+>>>>>>> feat/DashBoardAdd
   back:
     image: ghcr.io/c-leri/epsi-ci-cd-rpg-back:latest
     ports:
@@ -16,7 +20,7 @@ services:
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASS: ${DATABASE_PASS}
   database:
-    image: postgres:latest
+    image: postgres:17
     ports:
       - '5432:5432'
     environment:
