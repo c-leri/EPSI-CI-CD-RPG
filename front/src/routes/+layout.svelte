@@ -6,4 +6,5 @@
 </script>
 
 <Dashboard />
+
 {@render children()}
