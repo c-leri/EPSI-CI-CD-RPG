@@ -5,6 +5,7 @@ services:
       - '3000:3000'
     environment:
       BACKEND_URL: http://localhost:8080/api
+    platform: linux/amd64
   back:
     image: ghcr.io/c-leri/epsi-ci-cd-rpg-back:latest
     ports:
@@ -16,7 +17,7 @@ services:
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASS: ${DATABASE_PASS}
   database:
-    image: postgres:17
+    image: postgres:latest
     ports:
       - '5432:5432'
     environment:
