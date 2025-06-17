@@ -5,7 +5,7 @@
     import { ModeWatcher } from "mode-watcher";
     let { children } = $props();
 
-    let isDark = false;
+    let isDark = $state(false);
 
     function toggleMode() {
         isDark = !isDark;
@@ -27,7 +27,7 @@
                 <div class="flex items-center gap-4">
                     <button
                             class="rounded-full p-2 hover:bg-muted"
-                            on:click={toggleMode}
+                            onclick={toggleMode}
                             aria-label="Basculer le thème"
                     >
                         {#if isDark}
@@ -39,7 +39,7 @@
                     <button class="rounded-full p-2 hover:bg-muted">
                         <Bell class="h-5 w-5" />
                     </button>
-                    <div class="h-8 w-8 rounded-full bg-muted" />
+                    <div class="h-8 w-8 rounded-full bg-muted"></div>
                 </div>
             </div>
         </div>
