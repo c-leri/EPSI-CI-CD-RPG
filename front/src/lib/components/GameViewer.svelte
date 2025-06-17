@@ -1,20 +1,20 @@
 <script lang="ts">
   import { LucideRefreshCw } from 'lucide-svelte';
   import { roomApi } from '../Api/apicallexample';
-  import type { NumberRoom } from '$lib/types/api';
+  import type { Game } from '$lib/types/api';
   import { onMount } from 'svelte';
 
   let loading = false;
   let error: string | null = null;
-  let rooms: NumberRoom[] = [];
+  let Game: Game = [];
 
   async function fetchRooms() {
     loading = true;
     error = null;
 
     try {
-      const response = await roomApi.getRooms();
-      rooms = response.data;
+      const response = await roomApi.getGame();
+      Game = response.data;
     } catch (e) {
       error = e instanceof Error ? e.message : 'Une erreur est survenue';
     } finally {
@@ -31,7 +31,7 @@
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold">Liste des Salles RPG</h1>
     <button
-            on:click={fetchRooms}
+            on:click={fetchGame}
             class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
             disabled={loading}
     >
