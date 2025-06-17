@@ -1,6 +1,6 @@
 <script lang="ts">
   import { LucideRefreshCw } from 'lucide-svelte';
-  import { roomApi } from '../Api/apicallexample';
+  import { roomApi } from '../Api/CallApi/GetGame';
   import type { Game } from '$lib/types/api';
   import { onMount } from 'svelte';
 
@@ -13,15 +13,17 @@
     error = null;
 
     try {
-      // Vérifier d'abord dans le localStorage
+      const gameId = localStorage.getItem('gameId');
+      if (!gameId) {
+        throw new Error('ID du jeu non trouvé');
+      }
+
       const storedGame = localStorage.getItem('game');
       if (storedGame) {
         game = JSON.parse(storedGame);
       } else {
-        // Si pas dans le localStorage, faire une get
-        const response = await roomApi.getGame();
+        const response = await roomApi.getGame(gameId);
         game = response.data;
-        // Sauvegarder dans le localStorage
         localStorage.setItem('game', JSON.stringify(game));
       }
     } catch (e) {
@@ -35,6 +37,7 @@
     fetchGame();
   });
 </script>
+
 
 <div class="p-4 max-w-2xl mx-auto">
   <div class="flex justify-between items-center mb-6">
