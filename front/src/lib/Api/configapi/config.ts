@@ -1,6 +1,7 @@
-import {env} from '$env/dynamic/private';
+import {env} from '$env/dynamic/public';
+
 export const API_CONFIG = {
-	BACKEND_URL: env.BACKEND_URL,
+	PUBLIC_BACKEND_URL : env.PUBLIC_BACKEND_URL,
 	ENDPOINTS: {
 		Game: {
 			gameGet: '/game/{id}'
