@@ -1,10 +1,11 @@
 <script lang="ts">
     import { Home, Users, Settings, BarChart3, Bell, Sun,Moon } from '@lucide/svelte';
     import "../../app.css";
+    import ScenarioViewer from "$lib/components/ScenarioViewer.svelte";
     import { ModeWatcher } from "mode-watcher";
     let { children } = $props();
 
-    let isDark = false;
+    let isDark = $state(false);
 
     function toggleMode() {
         isDark = !isDark;
@@ -26,7 +27,7 @@
                 <div class="flex items-center gap-4">
                     <button
                             class="rounded-full p-2 hover:bg-muted"
-                            on:click={toggleMode}
+                            onclick={toggleMode}
                             aria-label="Basculer le thème"
                     >
                         {#if isDark}
@@ -38,7 +39,7 @@
                     <button class="rounded-full p-2 hover:bg-muted">
                         <Bell class="h-5 w-5" />
                     </button>
-                    <div class="h-8 w-8 rounded-full bg-muted" />
+                    <div class="h-8 w-8 rounded-full bg-muted"></div>
                 </div>
             </div>
         </div>
@@ -69,34 +70,6 @@
 
     <!-- Contenu principal -->
     <main class="ml-64 mt-16 min-h-[calc(100vh-4rem)] p-8">
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-
-            <!-- Cartes statistiques -->
-            <div class="rounded-lg border bg-card p-6">
-                <h3 class="text-sm font-medium text-muted-foreground">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, excepturi, aliquam fugiat modi perferendis fuga tenetur possimus qui aspernatur necessitatibus alias quia obcaecati! Facere ullam tempore hic neque perferendis a?</h3>
-                <p class="mt-2 text-2xl font-bold"></p>
-            </div>
-
-            <div class="rounded-lg border bg-card p-6">
-                <h3 class="text-sm font-medium text-muted-foreground">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex ducimus omnis quo et itaque facere fugit, iure molestiae. Recusandae sunt dolor, illum iusto quo a obcaecati officiis nulla ratione architecto.</h3>
-                <p class="mt-2 text-2xl font-bold"></p>
-            </div>
-
-            <div class="rounded-lg border bg-card p-6">
-                <h3 class="text-sm font-medium text-muted-foreground">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit voluptas officiis, dignissimos iure, explicabo placeat totam iusto doloremque minima quos quis labore, autem ex nostrum provident dolor unde libero officia.</h3>
-                <p class="mt-2 text-2xl font-bold"></p>
-            </div>
-
-            <div class="rounded-lg border bg-card p-6">
-                <h3 class="text-sm font-medium text-muted-foreground">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam nemo facilis, aliquam quia sit voluptatem suscipit minus quaerat ullam, praesentium velit unde quos eos excepturi dicta totam! Consequuntur, maxime dolor.</h3>
-                <p class="mt-2 text-2xl font-bold"></p>
-            </div>
-        </div>
-
-        <!-- Section de contenu supplémentaire -->
-        <div class="mt-8 rounded-lg border bg-card p-6">
-            <h3 class="text-lg font-medium">Activité Récente</h3>
-            <p class="mt-2 text-muted-foreground">Aucune activité récente à afficher.</p>
-        </div>
+       <ScenarioViewer />
     </main>
 </div>
