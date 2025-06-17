@@ -3,6 +3,8 @@ services:
     image: ghcr.io/c-leri/epsi-ci-cd-rpg-front:latest
     ports:
       - '3000:3000'
+    environment:
+      BACKEND_URL: http://localhost:8080/api
   back:
     image: ghcr.io/c-leri/epsi-ci-cd-rpg-back:latest
     ports:
