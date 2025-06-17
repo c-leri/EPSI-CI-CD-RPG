@@ -10,8 +10,6 @@ on:
       - back/settings.gradle
       - .github/workflows/test-back.yml
   pull_request:
-    paths:
-      - back/**
 
 jobs:
   test:
