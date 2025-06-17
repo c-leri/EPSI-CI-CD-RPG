@@ -44,6 +44,17 @@ public class GameService {
         int diceRoll = (int) (Math.random() * 6) + 1;
         game.setLastDiceRoll(diceRoll);
 
+        rollDice(game, diceRoll);
+
+        if (diceRoll != 1) {
+            game.setNbSalle(game.getNbSalle() + 1); // increment room only if not game over
+        }
+
+        gameRepository.save(game);
+        return game;
+    }
+
+    public void rollDice(Game game, int diceRoll){
         switch (diceRoll) {
             case 1:
                 game.setPv(0); // Game over
@@ -57,13 +68,6 @@ public class GameService {
                 break;
             // 4 & 5: nothing happens
         }
-
-        if (diceRoll != 1) {
-            game.setNbSalle(game.getNbSalle() + 1); // increment room only if not game over
-        }
-
-        gameRepository.save(game);
-        return game;
     }
 
 }
