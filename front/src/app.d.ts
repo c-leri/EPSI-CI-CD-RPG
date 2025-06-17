@@ -1,11 +1,11 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
-import type { ApiResponse, NumberRoom } from '/lib/types/api';
+import type { ApiResponse, Game } from '/lib/types/api';
 declare global {
 	namespace App {
 		interface PageData {
 			apiresponse:ApiResponse;
-			numberroom:NumberRoom;
+			game:Game;
 		}
 		// interface Error {}
 		// interface Locals {}
