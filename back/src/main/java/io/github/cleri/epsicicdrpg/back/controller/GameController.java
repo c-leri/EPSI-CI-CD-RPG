@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 
-@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/game")
 @RestController
 public class GameController {
     private final GameService gameService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<String> createGame() {
         int gameId = gameService.createGame();
 
