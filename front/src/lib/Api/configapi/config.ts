@@ -5,7 +5,7 @@ export const API_CONFIG = {
 	ENDPOINTS: {
 		Game: {
 			getAllGames: 'game/GetAll',
-			gameCreate: 'game/',
+			gameCreate: 'game',
 			gameGet: 'game/{id}',
 			gameNextRoom: 'game/{id}/play'
 		}
