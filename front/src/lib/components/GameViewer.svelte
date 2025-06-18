@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { LucideRefreshCw } from 'lucide-svelte';
   import { roomApi } from '../Api/CallApi/GetGame';
   import type { Game } from '$lib/types/api';
   import { onMount } from 'svelte';
-	import { gameApi } from '$lib/Api/CallApi/gameApi';
+  import { gameApi } from '$lib/Api/CallApi/gameApi';
 
   let showModal = false;
 
@@ -15,8 +14,7 @@
       loading = true
       const loadedGameResponse = await gameApi.loadGame(n);
       loadedGame = loadedGameResponse?.data ?? loadedGameResponse;
-      
-      localStorage.setItem('game', JSON.stringify(loadedGame));
+
       game = loadedGame;
     } catch (e) {
       
@@ -29,6 +27,28 @@
 
   }
 
+  async function createGame() {
+    showModal = false;
+    error = null;
+    let loadedGame: Game | null = null;
+    let newGameId: number = 0;
+    try {
+      loading = true;
+      newGameId = await gameApi.createGame();
+      const loadedGameResponse = await gameApi.loadGame(newGameId);
+      loadedGame = loadedGameResponse?.data ?? loadedGameResponse;
+      game = loadedGame;
+    } catch (e) {
+      error = e instanceof Error ? e.message : 'Une erreur est survenue lors de la création du jeu';
+    } finally {
+      loading = false;
+    }
+    console.log('game id', newGameId)
+    console.log('Game created:', loadedGame);
+    console.log('Game state:', game);
+  }
+
+
   async function playNextRoom(n: number){
     showModal = false;
     error = null
@@ -37,8 +57,6 @@
       loading = true
       const loadedGameResponse = await gameApi.playNextRoom(n);
       loadedGame = loadedGameResponse?.data ?? loadedGameResponse;
-      
-      localStorage.setItem('game', JSON.stringify(loadedGame));
       game = loadedGame;
     } catch (e) {
       
@@ -90,7 +108,7 @@
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold">Détails du Jeu</h1>
     <button
-      on:click={() => showModal = true}
+      onclick={() => showModal = true}
       class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-lg shadow hover:from-blue-600 hover:to-blue-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,10 +122,10 @@
       <div class="bg-black rounded-lg shadow-lg p-6 min-w-[200px]">
         <h2 class="text-lg font-bold mb-4">Choisissez votre numéro de sauvegarde</h2>
         <div class="flex gap-2 mb-4">
-        {#each [1,2,3,4,5] as n}
+        {#each [1,2,3,4,5] as n (n)}
           <button
           class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-          on:click={() => handleLoadGame(n)}
+          onclick={() => handleLoadGame(n)}
           >
           {n}
           </button>
@@ -115,7 +133,7 @@
         </div>
         <button
         class="mt-2 px-3 py-1 bg-gray-300 rounded hover:bg-gray-400"
-        on:click={() => showModal = false}
+        onclick={() => showModal = false}
         >
         Annuler
         </button>
@@ -125,13 +143,16 @@
 
 
     <button
-            on:click={fetchGame}
-            class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            onclick={createGame}
+            class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-green-700 text-white rounded-lg shadow hover:from-green-600 hover:to-green-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 mr-2"
             disabled={loading}
     >
-      <LucideRefreshCw class={loading ? 'animate-spin' : ''} />
-      Rafraîchir
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+      </svg>
+      Nouvelle Partie
     </button>
+
   </div>
 
   {#if error}
@@ -150,9 +171,9 @@
       Vous êtes mort. Veuillez démarrer une nouvelle partie ou charger une autre sauvegarde.
     </div>
   {:else }
-    <button class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700" on:click={() => playNextRoom(game!.id)}> next room </button>
+    <button class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700" onclick={() => playNextRoom(game!.id)}> next room </button>
   {/if}
-  
+  !
     <div class="bg-white shadow-lg rounded-lg p-6">
       <div class="border rounded-lg p-4 bg-gray-50">
         <h3 class="font-medium text-black">Jeu {game.id}</h3>
