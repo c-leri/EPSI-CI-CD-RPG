@@ -15,6 +15,8 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASS: ${DATABASE_PASS}
+    depends_on:
+      - database
   database:
     image: postgres:17
     ports:

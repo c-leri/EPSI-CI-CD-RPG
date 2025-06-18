@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { Home, Sun, Moon } from '@lucide/svelte';
-	import '../../app.css';
 	import GameViewer from '$lib/components/GameViewer.svelte';
-	import { ModeWatcher } from 'mode-watcher';
-	let { children } = $props();
 
 	let isDark = $state(false);
 
@@ -14,8 +11,6 @@
 </script>
 
 <div class="bg-background min-h-screen">
-	<ModeWatcher />
-	{@render children?.()}
 	<!-- Header -->
 	<header class="bg-background/95 fixed top-0 z-50 w-full border-b backdrop-blur">
 		<div class="flex h-16 items-center px-4">

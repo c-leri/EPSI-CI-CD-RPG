@@ -4,8 +4,8 @@ import type { ApiResponse, Game } from '/lib/types/api';
 declare global {
 	namespace App {
 		interface PageData {
-			apiresponse:ApiResponse;
-			game:Game;
+			apiresponse: ApiResponse;
+			game: Game;
 		}
 		// interface Error {}
 		// interface Locals {}

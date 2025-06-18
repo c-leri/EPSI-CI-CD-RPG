@@ -1,10 +1,10 @@
 <script lang="ts">
+	import { ModeWatcher } from 'mode-watcher';
 	import '../app.css';
-    import Dashboard from "$lib/Dashboard/Dashboard.svelte";
-	let { children } = $props();
 
+	let { children } = $props();
 </script>
 
-<Dashboard />
+<ModeWatcher />
 
 {@render children()}
