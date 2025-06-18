@@ -10,7 +10,7 @@ test('Click "Charger une sauvegarde" shows modal with correct title ', async ({ 
 
 	await page.getByRole('button', { name: /Charger une sauvegarde/i }).click();
 
-	await expect(page.getByText(/Choisissez votre numéro de sauvegarde/i)).toBeVisible();
+	await expect(page.getByText(/Choisiser votre partie/i)).toBeVisible();
 });
 
 test('Click "annuler" closes modal and removes title ', async ({ page }) => {
@@ -18,11 +18,11 @@ test('Click "annuler" closes modal and removes title ', async ({ page }) => {
 
 	await page.getByRole('button', { name: /Charger une sauvegarde/i }).click();
 
-	await expect(page.getByText(/Choisissez votre numéro de sauvegarde/i)).toBeVisible();
+	await expect(page.getByText(/Choisiser votre partie/i)).toBeVisible();
 
 	// Click the 'annuler' button
-	await page.getByRole('button', { name: /Annuler/i }).click();
+	await page.getByRole('button', { name: /Fermer/i }).click();
 
 	// Verify the modal title is gone
-	await expect(page.getByText(/Choisissez votre numéro de sauvegarde/i)).toBeHidden();
+	await expect(page.getByText(/Choisiser votre partie/i)).toBeHidden();
 });
