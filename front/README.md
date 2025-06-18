@@ -1,38 +1,41 @@
-# sv
+# Front
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Setup
 
-## Creating a project
+You can install the project dependencies by running:
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```shell
+npm ci
 ```
 
-## Developing
+## Tests
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Unit
 
-```bash
-npm run dev
+You can run the project's unit tests with:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```shell
+npm run test:unit run
 ```
 
-## Building
+### E2E
 
-To create a production version of your app:
+You can install the dependencies for playwright with:
 
-```bash
-npm run build
+```shell
+npx playwright install --with-deps
 ```
 
-You can preview the production build with `npm run preview`.
+You can then run the project's e2e tests with:
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```shell
+npm run test:e2e
+```
+
+## Lint
+
+You can lint the project with prettier and eslint with:
+
+```shell
+npm run lint  
+```

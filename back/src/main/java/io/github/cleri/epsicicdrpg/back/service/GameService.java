@@ -1,6 +1,5 @@
 package io.github.cleri.epsicicdrpg.back.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import io.github.cleri.epsicicdrpg.back.model.Game;
 import io.github.cleri.epsicicdrpg.back.repository.GameRepository;
@@ -9,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class GameService {
-
-    @Autowired
-    private final GameRepository gameRepository ;
+    private final GameRepository gameRepository;
 
     public int createGame(){
         Game game = gameRepository.save(new Game());
@@ -44,19 +41,7 @@ public class GameService {
         int diceRoll = (int) (Math.random() * 6) + 1;
         game.setLastDiceRoll(diceRoll);
 
-        switch (diceRoll) {
-            case 1:
-                game.setPv(0); // Game over
-                break;
-            case 2:
-            case 3:
-                game.setPv(Math.max(0, game.getPv() - 1));
-                break;
-            case 6:
-                game.setPv(game.getPv() + 1);
-                break;
-            // 4 & 5: nothing happens
-        }
+        rollDice(game, diceRoll);
 
         if (diceRoll != 1) {
             game.setNbSalle(game.getNbSalle() + 1); // increment room only if not game over
@@ -64,6 +49,21 @@ public class GameService {
 
         gameRepository.save(game);
         return game;
+    }
+
+    public void rollDice(Game game, int diceRoll){
+        switch (diceRoll) {
+            case 1:
+                game.setPv(0); // Game over
+                break;
+            case 2, 3:
+                game.setPv(Math.max(0, game.getPv() - 1));
+                break;
+            case 6:
+                game.setPv(game.getPv() + 1);
+                break;
+            default:
+        }
     }
 
 }

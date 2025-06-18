@@ -3,7 +3,8 @@ package io.github.cleri.epsicicdrpg.back.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,17 +18,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
-@RestController
+@Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/api/game")
+@RestController
 public class GameController {
-
-    @Autowired
-    private GameService gameService;
+    private final GameService gameService;
 
     @PostMapping("/")
     public ResponseEntity<String> createGame() {
         int gameId = gameService.createGame();
-        System.err.println("YO");
+
+        log.error("YO");
+
         return ResponseEntity.status(201).body(Integer.toString(gameId));
     }
 
@@ -41,7 +44,7 @@ public class GameController {
     }
 
     @PostMapping("/{id}/play")
-        public ResponseEntity<?> playGame(@PathVariable Long id) {
+        public ResponseEntity<Object> playGame(@PathVariable Long id) {
             Game game = gameService.getGameById(id);
 
             if (game == null) {
