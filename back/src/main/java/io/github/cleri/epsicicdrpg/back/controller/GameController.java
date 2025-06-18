@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.github.cleri.epsicicdrpg.back.model.Game;
@@ -14,6 +15,7 @@ import io.github.cleri.epsicicdrpg.back.service.GameService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.util.List;
 
 
 
@@ -33,6 +35,15 @@ public class GameController {
 
         return ResponseEntity.status(201).body(Integer.toString(gameId));
     }
+    @GetMapping("/GetAll")
+    public ResponseEntity<List<Game>> getAllGames() {
+        List<Game> games = gameService.getAllGame();
+        if (games.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(games);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Game> getGame(@PathVariable Long id) {

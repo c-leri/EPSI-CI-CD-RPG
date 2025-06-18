@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import io.github.cleri.epsicicdrpg.back.model.Game;
 import io.github.cleri.epsicicdrpg.back.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -19,6 +20,14 @@ public class GameService {
         Game game = gameRepository.save(new Game());
         
         return game.getId().intValue();
+        
+    }
+
+    public List<Game> getAllGame(){
+        List<Game> listGame = gameRepository.findAll();
+
+        return listGame;
+
     }
 
     public Game getGameById(Long id) {

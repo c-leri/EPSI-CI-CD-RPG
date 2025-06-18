@@ -1,63 +1,59 @@
 <script lang="ts">
-    import { Home, Bell, Sun,Moon } from '@lucide/svelte';
-    import "../../app.css";
-    import GameViewer from "$lib/components/GameViewer.svelte";
-    import { ModeWatcher } from "mode-watcher";
-    let { children } = $props();
+	import { Home, Sun, Moon } from '@lucide/svelte';
+	import '../../app.css';
+	import GameViewer from '$lib/components/GameViewer.svelte';
+	import { ModeWatcher } from 'mode-watcher';
+	let { children } = $props();
 
-    let isDark = $state(false);
+	let isDark = $state(false);
 
-    function toggleMode() {
-        isDark = !isDark;
-        document.documentElement.classList.toggle('dark');
-    }
-
+	function toggleMode() {
+		isDark = !isDark;
+		document.documentElement.classList.toggle('dark');
+	}
 </script>
 
+<div class="bg-background min-h-screen">
+	<ModeWatcher />
+	{@render children?.()}
+	<header class="bg-background/95 fixed top-0 z-50 w-full border-b backdrop-blur">
+		<div class="flex h-16 items-center px-4">
+			<div class="flex flex-1 items-center justify-between">
+				<h2 class="text-lg font-semibold">Jeux de role</h2>
 
+				<div class="flex items-center gap-4">
+					<button
+						class="hover:bg-muted rounded-full p-2"
+						onclick={toggleMode}
+						aria-label="Basculer le thème"
+					>
+						{#if isDark}
+							<Sun class="h-5 w-5" />
+						{:else}
+							<Moon class="h-5 w-5" />
+						{/if}
+					</button>
+					<div class="bg-muted h-8 w-8 rounded-full"></div>
+				</div>
+			</div>
+		</div>
+	</header>
 
-<div class="min-h-screen bg-background">
-    <ModeWatcher />
-    {@render children?.()}
-    <header class="fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-        <div class="flex h-16 items-center px-4">
-            <div class="flex flex-1 items-center justify-between">
-                <h2 class="text-lg font-semibold">Jeux de role</h2>
+	<!-- Barre latérale -->
+	<aside class="bg-sidebar fixed top-0 left-0 z-40 mt-16 h-[calc(100vh-4rem)] w-64 border-r">
+		<nav class="space-y-1 p-4">
+			<a
+				href="/dashboard"
+				class="bg-sidebar-accent text-sidebar-accent-foreground flex items-center gap-3 rounded-lg px-3 py-2"
+			>
+				<Home class="h-5 w-5" />
+				Game
+			</a>
+		</nav>
+	</aside>
 
-                <div class="flex items-center gap-4">
-                    <button
-                            class="rounded-full p-2 hover:bg-muted"
-                            onclick={toggleMode}
-                            aria-label="Basculer le thème"
-                    >
-                        {#if isDark}
-                            <Sun class="h-5 w-5" />
-                        {:else}
-                            <Moon class="h-5 w-5" />
-                        {/if}
-                    </button>
-                    <button class="rounded-full p-2 hover:bg-muted">
-                        <Bell class="h-5 w-5" />
-                    </button>
-                    <div class="h-8 w-8 rounded-full bg-muted"></div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
-    <!-- Barre latérale -->
-    <aside class="fixed left-0 top-0 z-40 mt-16 h-[calc(100vh-4rem)] w-64 border-r bg-sidebar">
-        <nav class="space-y-1 p-4">
-            <a href="/dashboard" class="flex items-center gap-3 rounded-lg bg-sidebar-accent px-3 py-2 text-sidebar-accent-foreground">
-                <Home class="h-5 w-5" />
-                Game
-            </a>
-        </nav>
-    </aside>
-
-    <!-- Contenu principal -->
-    <main class="ml-64 mt-16 min-h-[calc(100vh-4rem)] p-8">
-       <GameViewer />
-    </main>
+	<!-- Contenu principal -->
+	<main class="mt-16 ml-64 min-h-[calc(100vh-4rem)] p-8">
+		<GameViewer />
+	</main>
 </div>
