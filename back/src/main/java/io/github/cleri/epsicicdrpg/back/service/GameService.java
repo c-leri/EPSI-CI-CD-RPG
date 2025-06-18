@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import io.github.cleri.epsicicdrpg.back.model.Game;
 import io.github.cleri.epsicicdrpg.back.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -17,6 +18,12 @@ public class GameService {
         
     }
 
+    public List<Game> getAllGame(){
+        List<Game> listGame = gameRepository.findAll();
+
+        return listGame;
+
+    }
 
     public Game getGameById(Long id) {
         return gameRepository.findById(id).orElse(null);
