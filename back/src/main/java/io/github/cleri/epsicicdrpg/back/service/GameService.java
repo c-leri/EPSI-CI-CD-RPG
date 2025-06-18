@@ -45,7 +45,7 @@ public class GameService {
             return null;
         }
 
-        int diceRoll = random.nextInt(7);
+        int diceRoll = random.nextInt(1, 7);
         game.setLastDiceRoll(diceRoll);
 
         rollDice(game, diceRoll);
