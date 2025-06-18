@@ -10,19 +10,13 @@ import lombok.Setter;
 @Getter 
 @Setter
 public class Game {
-    
     @GeneratedValue
     @Id
     private Long id;
-    private int pv;
-    private int nbSalle;
-    private int lastDiceRoll;
 
-    public Game() {
-        this.pv = 6; 
-        this.nbSalle = 0; 
-        this.lastDiceRoll = 7;
-    }
+    private int pv = 6;
 
+    private int nbSalle = 0;
 
+    private int lastDiceRoll = 7;
 }

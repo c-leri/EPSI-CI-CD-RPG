@@ -7,6 +7,7 @@ on:
     paths:
       - front/src/**
       - front/e2e/**
+      - front/package.json
       - front/package-lock.json
       - front/*config.json
       - front/*config.[tj]s
