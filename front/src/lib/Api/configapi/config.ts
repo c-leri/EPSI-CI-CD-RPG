@@ -4,6 +4,7 @@ export const API_CONFIG = {
 	BACKEND_URL : env.PUBLIC_BACKEND_URL,
 	ENDPOINTS: {
 		Game: {
+			gameCreate:'game/',
 			gameGet: 'game/{id}',
 			gameNextRoom: 'game/{id}/play'
 		}
