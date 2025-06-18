@@ -14,9 +14,9 @@ public class Game {
     @Id
     private Long id;
 
-    private int pv = 6;
+    private Integer pv = 6;
 
-    private int nbSalle = 0;
+    private Integer nbSalle = 0;
 
-    private int lastDiceRoll = 7;
+    private Integer lastDiceRoll = 7;
 }

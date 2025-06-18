@@ -16,18 +16,14 @@ public class GameService {
 
     private final Random random = new SecureRandom();
 
-    public int createGame(){
+    public long createGame(){
         Game game = gameRepository.save(new Game());
         
-        return game.getId().intValue();
-        
+        return game.getId();
     }
 
     public List<Game> getAllGame(){
-        List<Game> listGame = gameRepository.findAll();
-
-        return listGame;
-
+        return gameRepository.findAll();
     }
 
     public Game getGameById(Long id) {
