@@ -20,7 +20,7 @@
 		"test:e2e": "playwright test"
 	},
 	"lint-staged": {
-		"*.{html,css,json,md}": "prettier --write",
+		"*.{html,css,json}": "prettier --write",
 		"*.{js,ts,svelte}": [
 			"eslint --fix",
 			"prettier --write"
