@@ -3,19 +3,21 @@
 	import { onMount } from 'svelte';
 	import { gameApi } from '$lib/Api/CallApi/gameApi';
 
-	let showModal = false;
-	let loading = false;
-	let error: string | null = null;
-	let game: Game | null = null;
-	let existingGames: Game[] = [];
+	let showModal = $state(false);
+	let loading = $state(false);
+	let error: string | null = $state(null);
+	let game: Game | null = $state(null);
+	let existingGames: Game[] = $state([]);
 
-	$: totalGames = existingGames.length;
-	$: activeGames = existingGames.filter((game) => game.pv > 0).length;
-	$: finishedGames = existingGames.filter((game) => game.pv === 0).length;
-	$: highestRoom = Math.max(...existingGames.map((game) => game.nbSalle), 0);
-	$: averagePV = existingGames.length
-		? Math.round(existingGames.reduce((sum, game) => sum + game.pv, 0) / existingGames.length)
-		: 0;
+	let totalGames = $derived(existingGames.length);
+	let activeGames = $derived(existingGames.filter((game) => game.pv > 0).length);
+	let finishedGames = $derived(existingGames.filter((game) => game.pv === 0).length);
+	let highestRoom = $derived(Math.max(...existingGames.map((game) => game.nbSalle), 0));
+	let averagePV = $derived(
+		existingGames.length
+			? Math.round(existingGames.reduce((sum, game) => sum + game.pv, 0) / existingGames.length)
+			: 0
+	);
 
 	function getPVEmoji(pv: number): string {
 		if (pv === 0) return '💀';
@@ -127,13 +129,13 @@
 		<h1 class="text-2xl font-bold">⚔️ Détails du Jeu</h1>
 		<div class="flex gap-4">
 			<button
-				on:click={() => (showModal = true)}
+				onclick={() => (showModal = true)}
 				class="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
 			>
 				📂 Charger une partie
 			</button>
 			<button
-				on:click={createGame}
+				onclick={createGame}
 				class="flex items-center gap-2 rounded-lg bg-green-600 px-4 py-2 text-white transition-colors hover:bg-green-700"
 				disabled={loading}
 			>
@@ -194,7 +196,7 @@
 			{:else}
 				<button
 					class="mt-6 flex items-center gap-2 rounded-lg bg-yellow-600 px-4 py-2 text-white transition-colors hover:bg-yellow-700"
-					on:click={() => playNextRoom(game!.id)}
+					onclick={() => playNextRoom(game!.id)}
 				>
 					🚪 Salle suivante
 				</button>
@@ -208,7 +210,7 @@
 			<div class="min-w-[300px] rounded-lg bg-gray-800 p-6 shadow-lg">
 				<div class="mb-4 flex items-center justify-between">
 					<h2 class="text-lg font-bold text-white">🎮 Charger une partie</h2>
-					<button class="text-gray-400 hover:text-gray-200" on:click={loadExistingGames}>
+					<button class="text-gray-400 hover:text-gray-200" onclick={loadExistingGames}>
 						🔄
 					</button>
 				</div>
@@ -222,7 +224,7 @@
 						{#each existingGames as game (game.id)}
 							<button
 								class="flex items-center justify-between rounded bg-gray-700 px-4 py-3 text-white transition-colors hover:bg-gray-600"
-								on:click={() => handleLoadGame(game.id)}
+								onclick={() => handleLoadGame(game.id)}
 							>
 								<span>🎮 Partie #{game.id}</span>
 								<span class="flex items-center gap-2">
@@ -249,7 +251,7 @@
 				<div class="mt-4 flex justify-end gap-2">
 					<button
 						class="rounded bg-gray-600 px-4 py-2 text-white transition-colors hover:bg-gray-500"
-						on:click={() => (showModal = false)}
+						onclick={() => (showModal = false)}
 					>
 						❌ Fermer
 					</button>
