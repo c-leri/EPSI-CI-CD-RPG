@@ -10,7 +10,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo '' && cd .. && husky front/.husky && cd front",
+		"prepare": "svelte-kit sync || echo '' && (cd .. && husky front/.husky && cd front) || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
@@ -20,7 +20,7 @@
 		"test:e2e": "playwright test"
 	},
 	"lint-staged": {
-		"*.{html,css,json,md}": "prettier --write",
+		"*.{html,css,json}": "prettier --write",
 		"*.{js,ts,svelte}": [
 			"eslint --fix",
 			"prettier --write"
