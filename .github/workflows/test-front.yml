@@ -13,6 +13,10 @@ on:
       - .github/workflows/test-front.yml
   pull_request:
 
+permissions:
+  checks: write
+  contents: write
+
 jobs:
   test-unit:
     name: Unit Tests
@@ -35,15 +39,13 @@ jobs:
 
       - name: Test
         working-directory: ./front
-        run: npm run test:unit -- run --reporter=junit --outputFile=./test-report.xml
+        run: npm run test:unit -- run --coverage
 
-      - name: Test Report
-        uses: dorny/test-reporter@v2
+      - name: Report Coverage
         if: ${{ !cancelled() }}
+        uses: davelosert/vitest-coverage-report-action@v2
         with:
-          name: Tests
-          path: ./front/test-report.xml
-          reporter: jest-junit
+          working-directory: ./front
 
   test-e2e:
     name: End to End Tests
@@ -95,3 +97,31 @@ jobs:
           name: Tests
           path: ./front/test-report.xml
           reporter: jest-junit
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ./front/package.json
+          cache: npm
+          cache-dependency-path: ./front/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./front
+        run: npm ci
+
+      - name: Lint
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          eslint_dir: ./front
+          eslint_extensions: "js,ts,svelte"
+          prettier: true
+          prettier_dir: ./front
+          prettier_extensions: "css,html,js,json,ts,yaml,yml,svelte"
