@@ -1,10 +1,11 @@
-import {env} from '$env/dynamic/public';
+import { env } from '$env/dynamic/public';
 
 export const API_CONFIG = {
-	BACKEND_URL : env.PUBLIC_BACKEND_URL,
+	BACKEND_URL: env.PUBLIC_BACKEND_URL,
 	ENDPOINTS: {
 		Game: {
-			gameCreate:'game/',
+			getAllGames: 'game/GetAll',
+			gameCreate: 'game/',
 			gameGet: 'game/{id}',
 			gameNextRoom: 'game/{id}/play'
 		}
