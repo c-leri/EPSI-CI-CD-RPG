@@ -9,7 +9,6 @@
 	let game: Game | null = null;
 	let existingGames: Game[] = [];
 
-	// Statistiques calculées
 	$: totalGames = existingGames.length;
 	$: activeGames = existingGames.filter((game) => game.pv > 0).length;
 	$: finishedGames = existingGames.filter((game) => game.pv === 0).length;
@@ -32,7 +31,6 @@
 		return '👑';
 	}
 
-	// Garder vos fonctions existantes...
 	async function handleLoadGame(n: number) {
 		showModal = false;
 		error = null;
@@ -125,7 +123,6 @@
 		</div>
 	</div>
 
-	<!-- Header avec boutons -->
 	<div class="mb-8 flex items-center justify-between">
 		<h1 class="text-2xl font-bold">⚔️ Détails du Jeu</h1>
 		<div class="flex gap-4">
@@ -145,7 +142,6 @@
 		</div>
 	</div>
 
-	<!-- Messages d'erreur -->
 	{#if error}
 		<div class="mb-6 rounded-lg border border-red-500 bg-red-900/50 p-4">
 			<p class="text-red-300">⚠️ {error}</p>
