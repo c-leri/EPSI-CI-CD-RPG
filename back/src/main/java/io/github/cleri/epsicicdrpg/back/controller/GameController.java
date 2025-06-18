@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.github.cleri.epsicicdrpg.back.model.Game;
 import io.github.cleri.epsicicdrpg.back.service.GameService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
+
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/game")

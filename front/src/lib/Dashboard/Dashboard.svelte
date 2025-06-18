@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { Home, Users, Settings, BarChart3, Bell, Sun,Moon } from '@lucide/svelte';
+    import { Home, Bell, Sun,Moon } from '@lucide/svelte';
     import "../../app.css";
-    import ScenarioViewer from "$lib/components/ScenarioViewer.svelte";
+    import GameViewer from "$lib/components/GameViewer.svelte";
     import { ModeWatcher } from "mode-watcher";
     let { children } = $props();
 
@@ -22,7 +22,7 @@
     <header class="fixed top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
         <div class="flex h-16 items-center px-4">
             <div class="flex flex-1 items-center justify-between">
-                <h2 class="text-lg font-semibold">Tableau de Bord</h2>
+                <h2 class="text-lg font-semibold">Jeux de role</h2>
 
                 <div class="flex items-center gap-4">
                     <button
@@ -51,25 +51,13 @@
         <nav class="space-y-1 p-4">
             <a href="/dashboard" class="flex items-center gap-3 rounded-lg bg-sidebar-accent px-3 py-2 text-sidebar-accent-foreground">
                 <Home class="h-5 w-5" />
-                Accueil
-            </a>
-            <a href="/dashboard/users" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent/50">
-                <Users class="h-5 w-5" />
-                Utilisateurs
-            </a>
-            <a href="/dashboard/analytics" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent/50">
-                <BarChart3 class="h-5 w-5" />
-                Analytique
-            </a>
-            <a href="/dashboard/settings" class="flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground hover:bg-sidebar-accent/50">
-                <Settings class="h-5 w-5" />
-                Paramètres
+                Game
             </a>
         </nav>
     </aside>
 
     <!-- Contenu principal -->
     <main class="ml-64 mt-16 min-h-[calc(100vh-4rem)] p-8">
-       <ScenarioViewer />
+       <GameViewer />
     </main>
 </div>
