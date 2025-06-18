@@ -8,6 +8,12 @@ You can install the project dependencies by running:
 npm ci
 ```
 
+Then setup svelte-kit and the git hooks with:
+
+```shell
+npm run prepare
+```
+
 ## Tests
 
 ### Unit
@@ -37,5 +43,5 @@ npm run test:e2e
 You can lint the project with prettier and eslint with:
 
 ```shell
-npm run lint  
+npm run lint
 ```
